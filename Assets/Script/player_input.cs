@@ -6,6 +6,7 @@ public class player_input : MonoBehaviour {
 	SerialHandler serial_handler;
 	float interval = 1000.0f;
 	//commit test in Windows 2017/04/11 23:57
+	//commit test in Windows 2017/04/12 0:03
 	bool weaponIsMissile = false;
 	GameObject missile_target;
 	public Texture cursor;

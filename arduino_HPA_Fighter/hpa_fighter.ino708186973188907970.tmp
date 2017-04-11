@@ -1,0 +1,38 @@
+int pin = 2;
+volatile unsigned long interval = 10000;
+volatile unsigned long pre_time = 0;
+
+void setup() {
+  // put your setup code here, to run once:
+  Serial.begin(9600);
+  pinMode(pin,INPUT);
+  digitalWrite(pin,HIGH);
+  attachInterrupt(pin-2, pedal, FALLING);
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+  interval = millis() - pre_time;
+  if(interval > 2000){
+    no_pedal();
+  }
+
+}
+
+void pedal(){
+  send_rpm();
+  pre_time = millis();
+}
+
+void no_pedal(){
+  send_rpm();
+}
+
+void send_rpm(){
+  static int rpm = 400;
+  if(interval!=0){
+    rpm = 60*1000/interval;
+  }
+  rpm = constrain(rpm,0,400);
+  Serial.println(rpm);
+}
